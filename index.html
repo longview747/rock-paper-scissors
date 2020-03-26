@@ -1,0 +1,116 @@
+<html>
+<script>
+    let playerChoice;
+
+
+
+    let playerWins;
+    let playerScore = 0;
+    let compScore = 0;
+    let compChoice;
+    let tie = false;
+
+        PlayGame();
+    
+
+
+
+
+    function PlayGame() {
+        playerChoice = null;
+        playerWins = null;
+        tie = false;
+        GetPlayerInput();
+        compChoice = getRandomIntInclusive(0, 2);
+        PlayRound();
+        if (playerScore < 5 && compScore < 5) PlayGame();
+        else if(playerScore>compScore) alert("You're the super winner!");
+        else alert("You're the super loser!");
+    }
+
+
+    function GetPlayerInput() {
+        let scoreString = "Five points to win! \nCurrent score: " + playerScore + " vs " + compScore + "\n\n";
+        playerChoice = prompt(scoreString + "Rock, paper, or scissors?").toLowerCase();
+        if (playerChoice != "rock" && playerChoice != "paper" && playerChoice != "scissors") {
+            GetPlayerInput();
+        }
+    }
+
+
+
+
+    function PlayRound() {
+        let compString;
+        if (compChoice == 0) compString = "rock";
+        else if (compChoice == 1) compString = "paper";
+        else compString = "scissors";
+
+        switch (playerChoice) {
+            case "rock":
+                if (compChoice === 0) {
+                    tie = true;
+                    break;
+                }
+                else if (compChoice === 1) {
+                    playerWins = false;
+                    break;
+                }
+                else {
+                    playerWins = true;
+                    break;
+                }
+            case "paper":
+                if (compChoice === 0) {
+                    playerWins = true;
+                    break;
+                }
+                else if (compChoice === 1) {
+                    tie = true;
+                    break;
+                }
+                else {
+                    playerWins = false;
+                    break;
+                }
+            case "scissors":
+                if (compChoice === 0) {
+                    playerWins = false;
+                    break;
+                }
+                else if (compChoice === 1) {
+                    playerWins = true;
+                    break;
+                }
+                else {
+                    tie = true;
+                    break;
+                }
+
+        }
+
+        let battleString = playerChoice + " vs " + compString + "\n";
+
+        if (tie) alert(battleString + "Tie!")
+        else if (playerWins) {
+            alert(battleString + "You win!");
+            playerScore++;
+        }
+        else {
+            alert(battleString + "You lose!")
+            compScore++;
+        }
+
+    }
+
+
+
+    function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min; //The maximum is inclusive and the minimum is inclusive 
+    }
+
+</script>
+
+</html>
